@@ -1,0 +1,20 @@
+{
+    "id": 1,
+    "username": "mr_needs",
+    "firstname": "Victor",
+    "lastname": "Olorunda",
+    "email": "victorolorunda@mail.com",
+    "phone": "0812345677",
+    "address": "Benin City",
+    "reviews": [
+        {"name": "Solomon", "review": "He's a good salesman", "rating": 5},
+        {"name": "Felix", "review": "He's a great salesman", "rating": 5},
+        {"name": "Junior", "review": "He's the best salesman", "rating": 4}
+    ],
+    "product_catalog": [
+        {"id": 3},
+        {"id": 2},
+        {"id": 4}
+    ]
+
+}
