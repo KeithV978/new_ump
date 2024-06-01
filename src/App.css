@@ -1,23 +1,26 @@
 @font-face {
   font-family: poppins;
-  src: url('./Assets/Fonts/Poppins-Regular.ttf');
-} 
+  src: url("./Assets/Fonts/Poppins-Regular.ttf");
+}
 @font-face {
   font-family: sora;
-  src: url('./Assets/Fonts/Sora-Regular.ttf');
-} 
+  src: url("./Assets/Fonts/Sora-Regular.ttf");
+}
 /* html{font-size: 16px;} */
 body {
   font-family: poppins;
   background-color: #d8d8d8;
-  overflow-x: hidden; 
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-a{
+a {
   text-decoration: none;
   color: inherit;
 }
-h4{
+h4 {
   font-family: sora;
 }
+/* * {
+  border: 1px red solid !important;
+} */

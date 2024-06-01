@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, useTheme } from "@mui/material";
+import { styled } from "@mui/material";
 
 // import {motion} from 'framer-motion'
 
@@ -22,7 +22,7 @@ import * as yup from "yup";
 // import Person2 from "@mui/icons-material/Person2Rounded";
 import Phone from "@mui/icons-material/Phone";
 
-import { ErrorMessage } from "../../Components/Common";
+// import { ErrorMessage } from "../Components/Common";
 import {
   HeartFilled,
   LoadingOutlined,
@@ -31,9 +31,32 @@ import {
 } from "@ant-design/icons";
 import AlternateEmail from "@mui/icons-material/AlternateEmail";
 
-import firebase from "firebase/compat/app";
-import "firebase/compat/firestore";
-import firebaseConfig from "../../services/config";
+import { initializeApp } from "firebase/app";
+import {
+  collection,
+  doc,
+  getDocs,
+  getFirestore,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
+
+import firebaseConfig from "../services/config";
+
+const ErrorMessage = styled("p")(({ theme }) => ({
+  padding: ".3rem 0",
+  color: "#E91E63",
+  // display: 'flex',
+  // flexDirection: 'row',
+  // justifyContent: 'space-between',
+  // alignItems: 'center',
+  // borderRadius: '25px',
+  textAlign: "left",
+  fontSize: ".8rem",
+  // overflow: 'hidden',
+  margin: 0,
+}));
 
 const FormWrapper = styled(Box)(({ theme }) => ({
   // backgroundColor: "transparent",
@@ -46,7 +69,7 @@ const FormWrapper = styled(Box)(({ theme }) => ({
   width: "90%",
   marginTop: "4rem",
   marginBottom: "4rem",
-  
+
   [theme.breakpoints.up("xs")]: {
     minHeight: "60vh",
     width: "90%",
@@ -64,64 +87,67 @@ const schema = yup
   .object()
   .shape({
     email: yup.string().required("Type in your email."),
-    phone: yup.number("Type numbers only in this field").required("Your phone number is required").positive('Invalid number.')
+    phone: yup
+      .number("Type numbers only in this field")
+      .required("Your phone number is required")
+      .positive("Invalid number."),
     // .min(11, "Abeg your phone number no reach. Must be at least 11 digits.").max(11, "Abeg your phone number don too long, reduce am to less than 12."),
   })
   .required();
 
-export const Waitlist = ({Socials}) => {
+export const Waitlist = ({ Socials }) => {
   const [loading, setLoading] = React.useState(false);
   const [useId, setUserId] = React.useState("");
-  const [count, setCount] = React.useState(0);
+  // const [count, setCount] = React.useState(0);
   const [progress, setProgress] = React.useState(
     "Please wait while we add you..."
   );
   const [existing, setExisting] = React.useState(false);
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-  React.useEffect(() => {
-    (() => {
-      const waitlistRef = db.collection("waitlist");
+  // React.useEffect(() => {
+  //   (() => {
+  //     const querySnapshot = getDocs(waitlistRef);
 
-      const unsubscribe = waitlistRef.onSnapshot((snapshot) => {
-        setCount(snapshot.size);
-      });
+  //     querySnapshot
+  //       .then((data) => {
+  //         console.log(data);
+  //       })
+  //       .catch((error) => console.log(error));
+  //   })();
+  // }, [waitlistRef]);
 
-      return () => unsubscribe();
-    })();
-  }, [count, db]);
+  const waitlistRef = collection(db, "waitlist");
 
   // form submission
   const handleOnSubmit = async (data) => {
     setLoading(true);
 
     // add a zero at the front of all submitted phone numbers
-    const setData = {...data, phone: "0" + data.phone} 
+    const setData = { ...data, phone: "0" + data.phone };
 
     try {
       // first check if the email already exists in the db
-      const result = await db
-        .collection("waitlist")
-        .where("email", "==", setData.email)
-        .get();
-
-        // if the email doesn't exist
-      if (!result?.docs[0]?.exists) {
-        const user = await db.collection("waitlist").add(setData);
-
-        // add the new details to the database (firestore)
-        if (user.id) {
-          setUserId(user.id);
-          setProgress("You have now been added!");
-          setLoading(false);
-        }
-      } else {
-        // else if it does exist. Return the following message to the user.
+      const q = query(waitlistRef, where("email", "==", setData.email));
+      const snapS = await getDocs(q);
+      if (snapS.size > 1) {
         setProgress("This email already exists in our database.");
         setExisting(true);
+        return;
       }
+
+      const docRef = doc(waitlistRef, setData.phone);
+
+      await setDoc(docRef, setData, { merge: true })
+        .then(() => {
+          // console.log("successful");
+          setProgress("You have now been added!");
+          setLoading(false);
+          setUserId(setData.phone);
+        })
+        .catch((error) => console.log(error));
     } catch (error) {
       console.error("Error Adding document: ", error);
       setLoading(false);
@@ -137,10 +163,10 @@ export const Waitlist = ({Socials}) => {
     resolver: yupResolver(schema),
   });
 
-  const theme = useTheme();
+  // const theme = useTheme();
 
   if (loading) {
-    return ( 
+    return (
       <FormWrapper component={Paper} elevation={24}>
         <div
           style={{
@@ -157,23 +183,23 @@ export const Waitlist = ({Socials}) => {
             <LoadingOutlined
               style={{
                 fontSize: "5rem",
-                color: `${[theme.palette.tertiary.main]}`,
+                color: `#E91E63`,
               }}
             />
           ) : (
             <ExclamationCircleOutlined
               style={{
                 fontSize: "5rem",
-                color: `${[theme.palette.tertiary.main]}`,
+                color: `#E91E63`,
               }}
             />
           )}
           <Typography variant="h6" sx={{ color: `#707070` }}>
             {" "}
             {progress}{" "}
-            </Typography>
+          </Typography>
         </div>
-      </FormWrapper> 
+      </FormWrapper>
     );
   } else if (useId) {
     return (
@@ -192,29 +218,32 @@ export const Waitlist = ({Socials}) => {
           <CheckOutlined
             style={{
               fontSize: "5rem",
-              color: `${[theme.palette.tertiary.main]}`,
+              color: `#E91E63`,
             }}
           />
           <Typography variant="h6" sx={{ color: `#707070` }}>
             {progress} <br /> Welcome onboard
-            {progress === "You have now been added!" &&(
-              <Typography variant="h6" sx={{ color: `#707070`, margin: '.5rem 0' }}>
-                Now follow us on social media
-                <br/>
-                {Socials}
-              </Typography>
-            )} 
           </Typography>
+          {progress === "You have now been added!" && (
+            <Typography
+              variant="h6"
+              sx={{ color: `#707070`, margin: ".5rem 0" }}
+            >
+              Now follow us on social media
+              <br />
+              {Socials}
+            </Typography>
+          )}
         </div>
       </FormWrapper>
     );
   } else {
-    return ( 
+    return (
       <FormWrapper component={Paper} elevation={24}>
         <Typography sx={{ fontSize: ".9rem", textAlign: "center" }}>
           Join our waitlist
         </Typography>
-        <br/>
+        <br />
         <Typography
           sx={{ fontSize: ".7rem", textAlign: "left", color: "#9e9e9e" }}
         >
@@ -230,11 +259,16 @@ export const Waitlist = ({Socials}) => {
         <Divider />
 
         <Typography
-          sx={{ fontSize: ".7rem", textAlign: "left", color: "#9e9e9e", display: 'none' }}
+          sx={{
+            fontSize: ".7rem",
+            textAlign: "left",
+            color: "#9e9e9e",
+            display: "none",
+          }}
         >
           <i>
-            We currently have <strong> {count && count}</strong> number of
-            subscribers.
+            {/* We currently have <strong> {count && count}</strong> number of
+            subscribers. */}
           </i>
         </Typography>
         <br />
@@ -255,7 +289,7 @@ export const Waitlist = ({Socials}) => {
                       <InputAdornment position="start">
                         <AlternateEmail
                           sx={{
-                            color: "tertiary.main",
+                            color: "#E91E63",
                             fontSize: { xs: "1rem", sm: ".9rem" },
                           }}
                         />
@@ -285,7 +319,7 @@ export const Waitlist = ({Socials}) => {
                       <InputAdornment position="start">
                         <Phone
                           sx={{
-                            color: "tertiary.main",
+                            color: "#E91E63",
                             fontSize: { xs: "1rem", sm: ".9rem" },
                           }}
                         />
@@ -315,20 +349,13 @@ export const Waitlist = ({Socials}) => {
                     disabled={loading}
                     sx={{
                       textTransform: "capitalize",
-                      backgroundColor: `${[theme.palette.tertiary.main]}`,
+                      backgroundColor: `#E91E63`,
                       padding: "0.4rem 3rem",
                       width: { sm: "fit-content", xs: "100%" },
                       borderRadius: "5px",
                     }}
                   >
                     Lets go!
-                    {/* {!loading ? (
-                     
-                    ) : (
-                      <LoadingOutlined
-                        style={{ color: `${[theme.palette.tertiary.main]}` }}
-                      />
-                    )} */}
                   </Button>
                 </Box>
                 <br />
@@ -341,7 +368,7 @@ export const Waitlist = ({Socials}) => {
             </Grid>
           </form>
         </div>
-      </FormWrapper> 
+      </FormWrapper>
     );
   }
 };

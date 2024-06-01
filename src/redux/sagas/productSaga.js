@@ -120,7 +120,6 @@ function* productSaga({ type, payload }){
                     const {imageCollection, product, category } = payload;
 
                     const key = yield call(firebase.generateKey)
-                    console.log(key)
                     let images = [];
 
                     if(imageCollection.length !== 0){

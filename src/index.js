@@ -1,19 +1,18 @@
-import React from 'react';
-import ReactDOM  from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 // import {createRoot } from 'react-dom/client';
-import App from './App'; 
-import configureStore from './Redux/store'
+import App from "./App";
+// import configureStore from "./Redux/store";
 // import firebase from './services/config';
 
 // import { Loader } from './Components';
 // import { onAuthStateFail, onAuthStateSuccess } from './Redux/actions/auth_actions';
 
-const { store, persistor } = configureStore();
+// const { store, persistor } = configureStore();
 
-const root =  ReactDOM.createRoot(document.getElementById('root'))
-root.render(<App persistor={persistor} store={store}/>)
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
 // ReactDOM.render(<App persistor={persistor} store={store}/>, document.getElementById('root'));
-
 
 // render(<Loader/>, root);
 
@@ -26,7 +25,7 @@ root.render(<App persistor={persistor} store={store}/>)
 //   render(
 //     <React.StrictMode>
 //       <App persistor={persistor} store={store}/>
-//     </React.StrictMode>,  
+//     </React.StrictMode>,
 //     root
 //   );
 //  })

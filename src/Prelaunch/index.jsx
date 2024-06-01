@@ -8,16 +8,18 @@ import { motion } from "framer-motion";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
-import { styled, useTheme } from "@mui/material";
+import ListItem from "@mui/material/ListItem";
+// import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import { styled } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import IconButton from "@mui/material/IconButton";
 import Divider from "@mui/material/Divider";
 
-import prelaunch from "../../Assets/Images/prelaunch/prelaunch_photo.png";
-// import logo from "../../Assets/Images/logo/Mark W.png";
-import logo from "../../Assets/Images/logo/Mark W.svg";
-import logoO from "../../Assets/Images/logo/christmas_logo.png";
-import unibenLogo from "../../Assets/Images/prelaunch/uniben_logo.png";
+import prelaunch from "./prelaunch/lady_sitting.png";
+import logo from "./prelaunch/Mark W.svg";
+import logoO from "./prelaunch/Mark WO.svg";
+import unibenLogo from "./prelaunch/uniben_logo.png";
 
 import LocalDining from "@mui/icons-material/LocalDiningRounded";
 import Instagram from "@mui/icons-material/Instagram";
@@ -27,6 +29,8 @@ import Twitter from "@mui/icons-material/Twitter";
 import { Waitlist } from "./Waitlist";
 import { Info } from "./Info";
 import { TypeAnimation } from "react-type-animation";
+import { WhatsApp } from "@mui/icons-material";
+// import { Timer } from "./Timer";
 
 const Wrapper = styled("div")(() => ({
   maxWidth: "2024px",
@@ -60,8 +64,8 @@ const Footer = styled("footer")(() => ({
 }));
 
 const StyledA = styled("a")(() => ({
-  margin: '0 .2rem'
-}))
+  margin: "0 .2rem",
+}));
 const Socials = ({ colors, size }) => (
   <React.Fragment>
     <StyledA
@@ -69,7 +73,14 @@ const Socials = ({ colors, size }) => (
       target="_blank"
       rel="noreferrer"
     >
-      <IconButton sx={{ borderWidth: "1px", borderStyle: 'solid', borderColor: colors, padding: '.4rem' }}>
+      <IconButton
+        sx={{
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor: colors,
+          padding: ".4rem",
+        }}
+      >
         <LinkedIn sx={{ fontSize: "", color: colors, size: size }} />
       </IconButton>
     </StyledA>
@@ -78,7 +89,14 @@ const Socials = ({ colors, size }) => (
       target="_blank"
       rel="noreferrer"
     >
-      <IconButton sx={{ borderWidth: "1px", borderStyle: 'solid', borderColor: colors, padding: '.4rem' }}>
+      <IconButton
+        sx={{
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor: colors,
+          padding: ".4rem",
+        }}
+      >
         <Instagram sx={{ fontSize: "", color: colors, size: size }} />
       </IconButton>
     </StyledA>
@@ -87,38 +105,74 @@ const Socials = ({ colors, size }) => (
       target="_blank"
       rel="noreferrer"
     >
-      <IconButton sx={{ borderWidth: "1px", borderStyle: 'solid', borderColor: colors, padding: '.4rem' }}>
+      <IconButton
+        sx={{
+          borderWidth: "1px",
+          borderStyle: "solid",
+          borderColor: colors,
+          padding: ".4rem",
+        }}
+      >
         <Twitter sx={{ fontSize: "", color: colors, size: size }} />
       </IconButton>
     </StyledA>
   </React.Fragment>
 );
 
+const Timer = () => {
+  const [days, setDays] = React.useState(0);
+  const [hours, setHours] = React.useState(0);
+  const [minutes, setMinutes] = React.useState(0);
+  const [seconds, setSeconds] = React.useState(0);
+
+  const deadline = "June, 30, 2024";
+
+  const getTime = () => {
+    const time = Date.parse(deadline) - Date.now();
+
+    setDays(Math.floor(time / (1000 * 60 * 60 * 24)));
+    setHours(Math.floor((time / (1000 * 60 * 60)) % 24));
+    setMinutes(Math.floor((time / 1000 / 60) % 60));
+    setSeconds(Math.floor((time / 1000) % 60));
+  };
+
+  React.useEffect(() => {
+    const interval = setInterval(() => getTime(deadline), 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <React.Fragment>
+      <span>COMING IN:</span>
+      <br />
+      {days} DAYS, {hours} HOURS, {minutes} MINUTES, {seconds} SECONDS
+    </React.Fragment>
+  );
+};
+
 export const Prelaunch = () => {
-  const variants = {
+  const variant = {
     blink: {
       opacity: [0.1, 1, 0.1],
       transition: {
-        duration: 2,
-        ease: ["easeIn", "easeIn", "easeIn"],
-        repeat: { Infinity },
-        repeatType: "loop",
+        repeat: Infinity,
+        duration: 3,
+        ease: "easeInOut",
         repeatDelay: 0.1,
       },
     },
     rotate: {
-      rotateY: [0, 360, 0],
+      rotateY: [0, 180, 360, 180, 0],
       transition: {
         duration: 12,
-        ease: ["easeIn", "easeIn", "easeOut"],
-        repeat: { Infinity },
-        repeatType: "loop",
-        repeatDelay: 0.1,
+        ease: "easeInOut",
+        repeat: Infinity,
+        // repeatType: "loop",
+        // repeatDelay: 0.1,
       },
     },
   };
-
-  const theme = useTheme();
   return (
     <Wrapper>
       <CssBaseline />
@@ -149,15 +203,22 @@ export const Prelaunch = () => {
                       cursor: "pointer",
                       // "&:hover": { opacity: 0.5 },
                     }}
-                    initial={{ opacity: 1 }}
-                    whileHover={{ opacity: 0.5 }}
-                    transition={{
-                      duration: 1.5,
-                      ease: "easeInOut",
-                      repeat: Infinity,
-                    }}
+                    variants={variant}
+                    animate="blink"
                   >
-                    unibenmarketplace.com
+                    <ListItem disablePadding disableGutters>
+                      {/* <ListItemIcon>
+                        <img
+                          src={logoO}
+                          alt="logo"
+                          style={{
+                            display: "inline-block",
+                            // width: "",
+                          }}
+                        />
+                      </ListItemIcon> */}
+                      <ListItemText primary="unibenmarketplace.com" />
+                    </ListItem>
                   </motion.a>
                 </Grid>
                 <Grid item xs={6}>
@@ -243,17 +304,17 @@ export const Prelaunch = () => {
                       // fontStyle: 'italic'
                     }}
                     sequence={[
-                        "Buy | Sell | Swap | Auction ",
+                      "Buy | Sell | Swap | Auction ",
                       2100,
-                      "Buy,",
+                      "Buy",
                       1900,
-                      "Sell,",
+                      "Sell",
                       1900,
-                      "Swap,",
+                      "Swap",
                       1900,
-                      "Or auction.",
+                      "Auction.",
                       1900,
-                    
+
                       "",
                     ]}
                     repeat={Infinity}
@@ -274,16 +335,22 @@ export const Prelaunch = () => {
         }}
       >
         <Container>
-          <motion.span variants={variants} animate="blink">
+          <motion.span
+            variants={variant}
+            // initial={{ opacity: 0.1 }}
+            animate="blink"
+          >
             <Typography
               variant="h4"
               sx={{
                 color: "#fff",
                 textAlign: { xs: "center", sm: "left" },
                 fontSize: { md: "1.7rem", sm: "1.2rem", xs: "1.5rem" },
+                width: { xs: "100%", sm: "30%", md: "40%" },
+                letterSpacing: ".2rem",
               }}
             >
-              COMING IN JANUARY 2024.
+              <Timer />
             </Typography>
             <Typography
               sx={{
@@ -323,7 +390,7 @@ export const Prelaunch = () => {
                 />
               </div>
               <div>
-                <motion.div variants={variants} animate="rotate">
+                <motion.div variants={variant} animate="rotate">
                   <img
                     src={unibenLogo}
                     alt="logo"
@@ -344,26 +411,29 @@ export const Prelaunch = () => {
           sx={{ fontSize: ".8rem", color: "#dedede", textAlign: "cennter" }}
         >
           For inquiries, suggestions, propositions, or you just feel like buying
-          us shawarma <LocalDining sx={{ fontSize: ".9rem" }} />
+          us Shawarma <LocalDining sx={{ fontSize: ".9rem" }} /> ?
         </Typography>
-        <Typography
-          sx={{ fontSize: ".8rem", color: "#dedede", textAlign: "cennter" }}
+        {/* <Typography
+          sx={{ fontSize: ".8rem", color: "#dedede", textAlign: "center" }}
         >
-          Talk to us:{" "}
-        </Typography>
+          Let's have a chat:
+        </Typography> */}
         <Link
-          sx={{ fontSize: ".8rem", color: `${[theme.palette.tertiary.main]}` }}
-          href="mailto:circleofthreetechnologies@gmail.com"
+          sx={{ fontSize: ".8rem", color: `#E91E63`, textDecoration: "none" }}
+          href="https://wa.me/+2348152038183?text=Hi!%Victor"
         >
-          circleofthreetechnologies@gmail.com
+          <WhatsApp
+            sx={{ fontSize: "inherit", color: "inherit", marginTop: "-.5rem" }}
+          />{" "}
+          Chat with us here
         </Link>
         <br />
         <Typography sx={{ color: "#616161", fontSize: ".9rem" }}>
-          Follow us on our handles
+          Follow us on socials
         </Typography>
-        
-        <div style={{margin: '.5rem 0'}}>
-        <Socials colors="#fff" />
+
+        <div style={{ margin: ".5rem 0" }}>
+          <Socials colors="#fff" />
         </div>
 
         <Divider sx={{ borderColor: "#1e1e1e", margin: "1rem 0" }} />

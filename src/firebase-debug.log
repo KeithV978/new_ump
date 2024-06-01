@@ -1,0 +1,60 @@
+[debug] [2024-04-02T13:01:12.900Z] ----------------------------------------------------------------------
+[debug] [2024-04-02T13:01:13.590Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Victor Olorunda\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-04-02T13:01:13.591Z] CLI Version:   13.6.0
+[debug] [2024-04-02T13:01:13.591Z] Platform:      win32
+[debug] [2024-04-02T13:01:13.592Z] Node Version:  v20.10.0
+[debug] [2024-04-02T13:01:13.592Z] Time:          Tue Apr 02 2024 14:01:13 GMT+0100 (West Africa Standard Time)
+[debug] [2024-04-02T13:01:13.592Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-04-02T13:01:14.625Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-04-02T13:01:14.626Z] > authorizing via signed-in user (victorolorunda6@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Victor Olorunda\Documents\WORKSPACE\circle_of_three_tech\archive\new_ump\src
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-04-02T13:04:53.478Z] Using project from CLI flag: uniben-marketplace
+[debug] [2024-04-02T13:04:53.506Z] > refreshing access token with scopes: []
+[debug] [2024-04-02T13:04:53.514Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-04-02T13:04:53.515Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-04-02T13:05:07.161Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-04-02T13:05:07.161Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-04-02T13:05:07.234Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/uniben-marketplace [none]
+[debug] [2024-04-02T13:05:15.692Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/uniben-marketplace 200
+[debug] [2024-04-02T13:05:15.693Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/uniben-marketplace {"projectId":"uniben-marketplace","projectNumber":"175686229375","displayName":"Uniben Marketplace","name":"projects/uniben-marketplace","resources":{"hostingSite":"uniben-marketplace","storageBucket":"uniben-marketplace.appspot.com","locationId":"europe-west2"},"state":"ACTIVE","etag":"1_f8bb7ce7-e31d-4446-893b-95050a6d8420"}
+[info] i  Using project uniben-marketplace (Uniben Marketplace) 
+[info] 
+=== Hosting Setup
+[debug] [2024-04-02T13:05:15.758Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/uniben-marketplace [none]
+[debug] [2024-04-02T13:05:17.149Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/uniben-marketplace 200
+[debug] [2024-04-02T13:05:17.150Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/uniben-marketplace {"projectId":"uniben-marketplace","projectNumber":"175686229375","displayName":"Uniben Marketplace","name":"projects/uniben-marketplace","resources":{"hostingSite":"uniben-marketplace","storageBucket":"uniben-marketplace.appspot.com","locationId":"europe-west2"},"state":"ACTIVE","etag":"1_f8bb7ce7-e31d-4446-893b-95050a6d8420"}
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[debug] [2024-04-02T13:05:44.825Z] >>> [apiv2][query] GET https://www.gstatic.com/firebasejs/releases.json [none]
+[debug] [2024-04-02T13:05:58.695Z] *** [apiv2] error from fetch(https://www.gstatic.com/firebasejs/releases.json, {"headers":{},"method":"GET"}): FetchError: request to https://www.gstatic.com/firebasejs/releases.json failed, reason: socket hang up
+[debug] [2024-04-02T13:06:03.762Z] Error: Timed out.
+    at Timeout._onTimeout (C:\Users\Victor Olorunda\AppData\Roaming\npm\node_modules\firebase-tools\lib\utils.js:258:49)
+    at listOnTimeout (node:internal/timers:573:17)
+    at process.processTimers (node:internal/timers:514:7)
+[error] 
+[error] Error: An unexpected error has occurred.

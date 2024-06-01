@@ -26,7 +26,7 @@ export const Info = () => {
     setExpanded(newExpanded ? panel : false);
   };
   return (
-    <Box sx={{ margin: {sm: "2rem 0", xs: "4rem 0"} }}>
+    <Box sx={{ margin: { sm: "2rem 0", xs: "4rem 0" } }}>
       <Typography sx={{ color: "#fff" }} variant="h5">
         Frequently Asked Questions
       </Typography>
@@ -44,7 +44,7 @@ export const Info = () => {
                 sx={{ color: "#fff" }}
               >
                 <Typography sx={{ color: "#fff" }}>
-                  What's the mission behind <strong>Uniben Marketplace</strong>?                  
+                  What's the mission behind <strong>Uniben Marketplace</strong>?
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
@@ -72,8 +72,9 @@ export const Info = () => {
               </AccordionSummary>
               <AccordionDetails>
                 <Typography sx={{ color: "#fff" }}>
-                 ~ Our services are completely free of charge for the first month. 
-                 Then afterwards a monthly token applies. And yes, it is ridiculously cheap.
+                  ~ Our services are completely free of charge for the first
+                  month. Then afterwards a monthly token applies. And yes, it is
+                  ridiculously cheap.
                 </Typography>
               </AccordionDetails>
             </StyledAccordion>
@@ -96,8 +97,8 @@ export const Info = () => {
               <AccordionDetails>
                 <Typography sx={{ color: "#fff" }}>
                   ~ This product is meant to serve the great students of uniben.
-                  We encourage you to bring your businesses onboard. Whatever you want to
-                  buy or sell we have the category for it.
+                  We encourage you to bring your businesses onboard. Whatever
+                  you want to buy or sell we have the category for it.
                 </Typography>
               </AccordionDetails>
             </StyledAccordion>
@@ -114,15 +115,15 @@ export const Info = () => {
                 sx={{ color: "#fff" }}
               >
                 <Typography sx={{ color: "#fff" }}>
-                  Can I be a one-time seller on <strong>Uniben Marketplace</strong>?
+                  Can I be a one-time seller on{" "}
+                  <strong>Uniben Marketplace</strong>?
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography sx={{ color: "#fff" }}>
                   ~ Of course. If you need quick cash and want to sell an item
-                  you no longer need,
-                  {' '}<strong>Uniben Marketplace</strong> is the place. Someone
-                  somewhere on campus needs that same item.
+                  you no longer need, <strong>Uniben Marketplace</strong> is the
+                  place. Someone somewhere on campus needs that same item.
                 </Typography>
               </AccordionDetails>
             </StyledAccordion>
@@ -146,18 +147,24 @@ export const Info = () => {
               <AccordionDetails>
                 ~{" "}
                 <ul>
-                  <StyledLI>Books</StyledLI> 
-                  <StyledLI> Fashion items & accessories (Clothes, Bags, Shoes, Jewelries, etc)</StyledLI>
+                  <StyledLI>Books</StyledLI>
+                  <StyledLI>
+                    {" "}
+                    Fashion items & accessories (Clothes, Bags, Shoes,
+                    Jewelries, etc)
+                  </StyledLI>
                   <StyledLI>Computers & computer accessories</StyledLI>
-                  <StyledLI>Mobile devices & mobile devices accessories</StyledLI>
-                  <StyledLI>Foods  & Pastries (raw or cooked)</StyledLI>
+                  <StyledLI>
+                    Mobile devices & mobile devices accessories
+                  </StyledLI>
+                  <StyledLI>Foods & Pastries (raw or cooked)</StyledLI>
                   <StyledLI>Furnitures & household appliances</StyledLI>
                   <StyledLI>
                     Properties (including hostel spaces, apartments, etc)
                   </StyledLI>
                   <StyledLI>
-                    Services (Gas sales, electricals, hair dressing, fashion designing,
-                    painters, etc)
+                    Services (Gas sales, electricals, hair dressing, fashion
+                    designing, painters, etc)
                   </StyledLI>
                   <StyledLI>Vehicles</StyledLI>
                   <StyledLI>Others</StyledLI>
@@ -182,8 +189,8 @@ export const Info = () => {
               </AccordionSummary>
               <AccordionDetails>
                 <Typography sx={{ color: "#fff" }}>
-                  ~ It is any and every student who has something to sell,
-                  or anyone who has anything to sell to the students of uniben.
+                  ~ It is any and every student who has something to sell, or
+                  anyone who has anything to sell to the students of uniben.
                 </Typography>
               </AccordionDetails>
             </StyledAccordion>
@@ -200,20 +207,38 @@ export const Info = () => {
                 sx={{ color: "#fff" }}
               >
                 <Typography sx={{ color: "#fff" }}>
-                 How do I sell, swap or auction on <strong>Uniben Marketplace</strong>?
+                  How do I sell, swap or auction on{" "}
+                  <strong>Uniben Marketplace</strong>?
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography sx={{ color: "#fff" }}>
-                  ~ It's in few steps
-                  <ul>
-                    <li>Signup.</li>
-                    <li>Upload the item(s) with the details for prospective buyers to see.</li>
-                    <li>Buyers will contact you when they like what you offer.</li>
-                    <li>Meetup or deliver the item.</li>
-                  </ul>
-                  {/* {' '}<strong>Uniben Marketplace</strong>  */}
+                  ~ It's in a few easy steps
                 </Typography>
+
+                <ul>
+                  <li>
+                    <Typography sx={{ color: "#fff" }}>Signup.</Typography>
+                  </li>
+
+                  <li>
+                    <Typography sx={{ color: "#fff" }}>
+                      Upload the item(s) with the details for prospective buyers
+                      to see.
+                    </Typography>
+                  </li>
+                  <li>
+                    <Typography sx={{ color: "#fff" }}>
+                      Get contacted by buyers who want what you're selling.
+                    </Typography>
+                  </li>
+                  <li>
+                    <Typography sx={{ color: "#fff" }}>
+                      Meetup or use a dispatch to deliver the item(s).
+                    </Typography>
+                  </li>
+                </ul>
+                {/* {' '}<strong>Uniben Marketplace</strong>  */}
               </AccordionDetails>
             </StyledAccordion>
           </StyledLI>
